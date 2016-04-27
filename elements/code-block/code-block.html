@@ -1,0 +1,124 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="code-block">
+    <template>
+        <style>
+            .hljs {
+                display: block;
+                overflow-x: auto;
+                padding: 0.5em;
+                background: #474949;
+                color: #d1d9e1;
+                font-family: Consolas, Menlo, Courier, monospace;
+            }
+
+            .hljs-comment,
+            .hljs-quote {
+                color: #969896;
+                font-style: italic;
+            }
+
+            .hljs-keyword,
+            .hljs-selector-tag,
+            .hljs-literal,
+            .hljs-type,
+            .hljs-addition {
+                color: #cc99cc;
+            }
+
+            .hljs-number,
+            .hljs-selector-attr,
+            .hljs-selector-pseudo {
+                color: #f99157;
+            }
+
+            .hljs-string,
+            .hljs-doctag,
+            .hljs-regexp {
+                color: #8abeb7;
+            }
+
+            .hljs-title,
+            .hljs-name,
+            .hljs-section,
+            .hljs-built_in {
+                color: #b5bd68;
+            }
+
+            .hljs-variable,
+            .hljs-template-variable,
+            .hljs-selector-id,
+            .hljs-class .hljs-title {
+                color: #ffcc66;
+            }
+
+            .hljs-section,
+            .hljs-name,
+            .hljs-strong {
+                font-weight: bold;
+            }
+
+            .hljs-symbol,
+            .hljs-bullet,
+            .hljs-subst,
+            .hljs-meta,
+            .hljs-link {
+                color: #f99157;
+            }
+
+            .hljs-deletion {
+                color: #dc322f;
+            }
+
+            .hljs-formula {
+                background: #eee8d5;
+            }
+
+            .hljs-attr,
+            .hljs-attribute {
+                color: #81a2be;
+            }
+
+            .hljs-emphasis {
+                font-style: italic;
+            }
+
+
+        </style>
+
+        <pre><code class="hljs" id="code"><content></content></code></pre>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'code-block',
+            properties: {
+                language: String
+            },
+            ready: function() {
+                var code = this.$.code.innerHTML;
+                this.$.code.innerHTML = code
+                        .replace(/(SELECT )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(FROM )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(WHERE )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(CREATE )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(DATABASE )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(USE )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(SOURCE )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(DISTINCT )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(HAVING )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(GROUP )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(COUNT)/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(EXISTS)/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(BY )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(AND )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(IN)/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(NOT )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/(AS )/g, '<span class="hljs-keyword code-block">$1</span>')
+                        .replace(/( [0-9]+)/g, '<span class="hljs-number code-block">$1</span>')
+                        .replace(/('.+')/g, '<span class="hljs-string code-block">$1</span>');
+
+            }
+        });
+    </script>
+</dom-module>

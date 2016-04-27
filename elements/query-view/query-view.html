@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="query-view">
+    <template>
+        <style>
+            .center-horizontal {
+                margin: 0 auto;
+                text-align: center;
+            }
+        </style>
+        <div class="center-horizontal">
+            <iron-ajax id="ajax"
+                       auto
+                       url="/controller/db_controller.php"
+                       params=""
+                       handle-as="json"
+                       last-response="{{ajaxResponse}}"></iron-ajax>
+            <paper-button id="button" raised>查询</paper-button>
+            <table border="1">
+                <template is="dom-repeat" items="{{ajaxResponse.data}}" as="one">
+                    <tr>
+                        <template is="dom-repeat" items="{{transform(one)}}">
+                            <td>{{item}}</td>
+                        </template>
+                    </tr>
+                </template>
+            </table>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'query-view',
+            properties: {
+                query: String
+            },
+            ready: function() {
+//                this.$.ajax.params = {"action":"query", "query": this.query};
+//                this.$.ajax.generateRequest();
+                var ajax = this.$.ajax;
+                var query = this.query;
+                this.$.button.onclick = function() {
+                    ajax.params = {"action":"query", "query": query};
+                }
+            },
+            sendRequest: function() {
+//                this.$.ajax.params = {"action":"query", "query": this.query};
+                alert("test");
+            },
+            transform: function(item) {
+                var ret = new Array();
+                var i = 0;
+                for (var key in item) {
+                    ret[i] = item[key];
+                    ++i;
+                }
+                return ret;
+            }
+        });
+    </script>
+
+</dom-module>
